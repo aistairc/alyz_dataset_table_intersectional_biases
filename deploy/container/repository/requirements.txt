@@ -1,0 +1,2 @@
+git+https://github.com/intersectional-fairness/isf.git#egg=Intersectional_Fairness==0.1.0
+./ait_sdk-0.1.20-py3-none-any.whl
