@@ -2,7 +2,7 @@
   "name": "alyz_dataset_table_intersectional_biases",
   "description": "モデルの判定結果が保護属性において公平かを判定する。表データ、モデルの判定結果と保護属性名を受け取り、保護属性ごと(もしくは保護属性組み合わせ）のバイアスをDisparate Impact値(DI)で表現する。DI値が0.8以下,もしくは1.0以上の場合、バイアスの存在するデータであると判断する。 ※オプションによりバイアス緩和を行い、交差バイアスの緩和結果を返す本AITは入力データのサイズによってCPU・メモリリソースを大きく消費する場合があります。",
   "source_repository": "https://github.com/aistairc/qunomon/tree/main/ait_repository/ait/alyz_dataset_table_intersectional_biases",
-  "version": "0.1",
+  "version": "0.3",
   "quality": "https://ait-hub.pj.aist.go.jp/ait-hub/api/0.0.1/qualityDimensions/機械学習品質マネジメントガイドライン第三版/B-1データセットの被覆性",
   "keywords": [
     "Fairness",

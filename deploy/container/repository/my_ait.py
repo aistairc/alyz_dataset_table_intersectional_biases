@@ -38,7 +38,7 @@
 
 # [uneditable]
 
-# In[ ]:
+# In[1]:
 
 
 # Determine whether to start AIT or jupyter by startup argument
@@ -96,6 +96,8 @@ if not is_ait_launch:
 
 
 if not is_ait_launch:
+     requirements_generator.add_package('pandas','2.2.3')
+     requirements_generator.add_package('numpy','1.26.4')
      requirements_generator.add_package('git+https://github.com/intersectional-fairness/isf.git#egg=Intersectional_Fairness==0.1.0')
 
 
@@ -127,7 +129,7 @@ if not is_ait_launch:
 
 # isf用パッチ差し替え
 if not is_ait_launch:
-    location="/usr/local/lib/python3.8/dist-packages"
+    location="/usr/local/lib/python3.9/site-packages"
     aif_360_home=location+"/aif360"
     get_ipython().system('patch {aif_360_home}/algorithms/postprocessing/reject_option_classification.py patches/reject_option_classification.patch')
     get_ipython().system('patch {aif_360_home}/datasets/structured_dataset.py patches/structured_dataset.patch')
@@ -184,7 +186,7 @@ if not is_ait_launch:
                                              ' ※オプションによりバイアス緩和を行い、交差バイアスの緩和結果を返す'
                                              '本AITは入力データのサイズによってCPU・メモリリソースを大きく消費する場合があります。')
     manifest_genenerator.set_ait_source_repository('https://github.com/aistairc/qunomon/tree/main/ait_repository/ait/alyz_dataset_table_intersectional_biases')
-    manifest_genenerator.set_ait_version('0.1')
+    manifest_genenerator.set_ait_version('0.3')
     manifest_genenerator.add_ait_keywords('Fairness')
     manifest_genenerator.add_ait_keywords('Intersectional Bias')
     manifest_genenerator.set_ait_quality('https://ait-hub.pj.aist.go.jp/ait-hub/api/0.0.1/qualityDimensions/機械学習品質マネジメントガイドライン第三版/B-1データセットの被覆性')
@@ -285,6 +287,8 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import seaborn as sns
 from aif360.datasets import BinaryLabelDataset
+import warnings
+warnings.filterwarnings('ignore', category=FutureWarning)  # FutureWarningを無視
 
 
 # In[16]:
@@ -574,7 +578,7 @@ def main() -> None:
 
 # [uneditable]
 
-# In[27]:
+# In[ ]:
 
 
 if __name__ == '__main__':
