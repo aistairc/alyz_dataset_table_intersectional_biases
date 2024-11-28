@@ -1,5 +1,32 @@
 #!/usr/bin/bash
 
+echo -n "##### AIT GITHUB PUSH #####"
+echo -n "*************************************************************************************"
+echo -n "*************************************************************************************"
+echo -n "**  important :                                                                    **"
+echo -n "**    Before publishing the AIT to GITHUB,                                         **"
+echo -n "**    ensure that no personal or confidential information is disclosed and         **"
+echo -n "**    that the publication aligns with your objectives.                            **"
+echo -n "**    Please proceed with these precautions.                                       **"
+echo -n "**                                                                                 **"
+echo -n "**  Disclaimer :                                                                   **"
+echo -n "**    The publication of AITs on platform is the                                   **"
+echo -n "**    responsibility of the developers.                                            **"
+echo -n "**    The developers guarantee that the information contained in AIT               **"
+echo -n "**    does not infringe any third-party intellectual property rights and           **"
+echo -n "**    does not include any personal or confidential information.                   **"
+echo -n "**                                                                                 **"
+echo -n "**    In the event that developers inadvertently publish confidential information, **"
+echo -n "**    or if AIT is improperly used by a third party,                               **"
+echo -n "**    neither this platform nor its operators shall bear any liability.            **"
+echo -n "**    The developers shall bear full responsibility for any direct or              **"
+echo -n "**    indirect damages that may arise from the use of AIT.                         **"
+echo -n "**                                                                                 **"
+echo -n "**    Users of this platform understand the potential risks associated with        **"
+echo -n "**    using AIT and agree to use AIT at their own risk.                            **"
+echo -n "*************************************************************************************"
+echo -n "*************************************************************************************"
+
 INPUT_INVENTORY_ADD_FLAG=""
 INPUT_COMMIT_COMMENT=""
 COMMIT_ID=""
@@ -32,7 +59,23 @@ echo Inputed commit comment : $INPUT_COMMIT_COMMENT
 
 cd ..
 
-REPO_URL=$(git remote get-url origin)
+# 引数が与えられたかどうかで分岐
+if [ -z "$1" ]; then
+  # 引数がなければ git remote get-url origin を使って URL を取得
+  REPO_URL=$(git remote get-url origin)
+else
+  # 引数があれば、リモート URL の設定を行う
+  REMOTE=$(git remote -v)
+
+  if [ -n "$REMOTE" ]; then
+    # リモートリポジトリが見つかれば URL を更新
+    git remote set-url origin $1
+  else
+    # リモートリポジトリが見つからなければ新しく追加
+    git remote add origin $1
+  fi
+  REPO_URL=$1
+fi
 
 if [ "`echo $REPO_URL | grep 'https' `" ]; then
  CLONE_TYPE="H"
@@ -66,7 +109,9 @@ git push origin main
 
 COMMIT_ID=$(git show --format="%H" --no-patch)
 
+REPO_NAME_DISPLAY="`echo $REPO_NAME | rev | cut -c 5- | rev`"
+
 echo "------------------ Repository URL Start ------------------"
-echo "https://github.com/$GITHUB_ACCOUNT/$REPO_NAME/tree/$COMMIT_ID"
+echo "https://github.com/$GITHUB_ACCOUNT/$REPO_NAME_DISPLAY/tree/$COMMIT_ID"
 echo "------------------ Repository URL End ------------------"
 

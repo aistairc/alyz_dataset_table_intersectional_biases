@@ -1,2 +1,4 @@
+pandas==2.2.3
+numpy==1.26.4
 git+https://github.com/intersectional-fairness/isf.git#egg=Intersectional_Fairness==0.1.0
-./ait_sdk-0.1.20-py3-none-any.whl
+./ait_sdk-0.1.24-py3-none-any.whl

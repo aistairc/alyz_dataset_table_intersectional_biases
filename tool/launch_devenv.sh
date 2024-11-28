@@ -23,11 +23,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
     open "$JUPYTER_URL"
   fi
 else
-  su $(logname) -c "google-chrome \
-    --app=$JUPYTER_URL \
-    --disable-background-mode \
-    --disable-extensions \
-    2>/dev/null &"
+  google-chrome \
+  --app=$JUPYTER_URL \
+  --disable-background-mode \
+  --disable-extensions \
+  2>/dev/null &
 fi
 
 read -p "Do you want to stop and remove related docker containers? (y/n) " answer

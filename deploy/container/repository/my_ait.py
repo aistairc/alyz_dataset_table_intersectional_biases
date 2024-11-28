@@ -38,7 +38,7 @@
 
 # [uneditable]
 
-# In[ ]:
+# In[1]:
 
 
 # Determine whether to start AIT or jupyter by startup argument
@@ -96,6 +96,8 @@ if not is_ait_launch:
 
 
 if not is_ait_launch:
+     requirements_generator.add_package('pandas','2.2.3')
+     requirements_generator.add_package('numpy','1.26.4')
      requirements_generator.add_package('git+https://github.com/intersectional-fairness/isf.git#egg=Intersectional_Fairness==0.1.0')
 
 
@@ -108,7 +110,7 @@ if not is_ait_launch:
 
 # #### #3-3 [uneditable]
 
-# In[7]:
+# In[ ]:
 
 
 if not is_ait_launch:
@@ -122,25 +124,25 @@ if not is_ait_launch:
 
 # #### #4-1 [required]
 
-# In[8]:
+# In[ ]:
 
 
 # isf用パッチ差し替え
 if not is_ait_launch:
-    location="/usr/local/lib/python3.8/dist-packages"
+    location="/usr/local/lib/python3.9/site-packages"
     aif_360_home=location+"/aif360"
     get_ipython().system('patch {aif_360_home}/algorithms/postprocessing/reject_option_classification.py patches/reject_option_classification.patch')
     get_ipython().system('patch {aif_360_home}/datasets/structured_dataset.py patches/structured_dataset.patch')
 
 
-# In[9]:
+# In[ ]:
 
 
 if not is_ait_launch:
     get_ipython().system('pip show Intersectional-Fairness # isf用パッチ差し替え')
 
 
-# In[10]:
+# In[ ]:
 
 
 # import if you need modules cell
@@ -152,7 +154,7 @@ from isf.analysis.metrics import check_metrics_combination_attribute, check_metr
 
 # #### #4-2 [uneditable]
 
-# In[11]:
+# In[ ]:
 
 
 # must use modules
@@ -171,7 +173,7 @@ from ait_sdk.develop.annotation import measures, resources, downloads, ait_main 
 
 # [required]
 
-# In[12]:
+# In[ ]:
 
 
 if not is_ait_launch:
@@ -184,7 +186,7 @@ if not is_ait_launch:
                                              ' ※オプションによりバイアス緩和を行い、交差バイアスの緩和結果を返す'
                                              '本AITは入力データのサイズによってCPU・メモリリソースを大きく消費する場合があります。')
     manifest_genenerator.set_ait_source_repository('https://github.com/aistairc/qunomon/tree/main/ait_repository/ait/alyz_dataset_table_intersectional_biases')
-    manifest_genenerator.set_ait_version('0.1')
+    manifest_genenerator.set_ait_version('0.3')
     manifest_genenerator.add_ait_keywords('Fairness')
     manifest_genenerator.add_ait_keywords('Intersectional Bias')
     manifest_genenerator.set_ait_quality('https://ait-hub.pj.aist.go.jp/ait-hub/api/0.0.1/qualityDimensions/機械学習品質マネジメントガイドライン第三版/B-1データセットの被覆性')
@@ -224,7 +226,7 @@ if not is_ait_launch:
 
 # [required]
 
-# In[13]:
+# In[ ]:
 
 
 if not is_ait_launch:
@@ -241,7 +243,7 @@ if not is_ait_launch:
 
 # [uneditable]
 
-# In[14]:
+# In[ ]:
 
 
 logger = get_logger()
@@ -271,7 +273,7 @@ ait_manifest.read_json(path_helper.get_manifest_file_path())
 
 # [required]
 
-# In[15]:
+# In[ ]:
 
 
 from isf.core.intersectional_fairness import IntersectionalFairness
@@ -285,9 +287,11 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import seaborn as sns
 from aif360.datasets import BinaryLabelDataset
+import warnings
+warnings.filterwarnings('ignore', category=FutureWarning)  # FutureWarningを無視
 
 
-# In[16]:
+# In[ ]:
 
 
 def read_protection_attribute(protection_attribute):
@@ -296,7 +300,7 @@ def read_protection_attribute(protection_attribute):
     return protected_attribute_names
 
 
-# In[17]:
+# In[ ]:
 
 
 def convert_dataset(input_table_data, input_label_data, protection_attribute):
@@ -318,7 +322,7 @@ def convert_dataset(input_table_data, input_label_data, protection_attribute):
     return dataset
 
 
-# In[18]:
+# In[ ]:
 
 
 # 入力データの公平性を評価
@@ -340,7 +344,7 @@ def calc_worstDI(df_lr_di):
     return worstDI
 
 
-# In[19]:
+# In[ ]:
 
 
 # 入力データの公平性評価結果
@@ -364,7 +368,7 @@ def calc_DI(ds, file_path: str=None) -> None:
     return df_lr_di
 
 
-# In[20]:
+# In[ ]:
 
 
 # 緩和データの公平性評価結果
@@ -388,7 +392,7 @@ def calc_DI_mitigated(ds, file_path: str=None) -> None:
     return df_lr_di
 
 
-# In[21]:
+# In[ ]:
 
 
 # 緩和データの公平性評価結果
@@ -407,7 +411,7 @@ def calc_Based_Accuracy_mitigated(ds, ds_predicted, file_path: str=None) -> None
     return result_combattr_bias
 
 
-# In[22]:
+# In[ ]:
 
 
 # グラフ比較
@@ -445,7 +449,7 @@ def plot_intersectionalbias_compare(ds_bef, ds_aft, file_path: str=None) -> None
     plt.savefig(file_path)
 
 
-# In[23]:
+# In[ ]:
 
 
 # 緩和失敗(表)
@@ -455,7 +459,7 @@ def mitigation_failed_ret_table(file_path: str=None) -> None:
     pd.DataFrame({'Mitigation Failed'}).to_csv(file_path, header=False, index=False)
 
 
-# In[24]:
+# In[ ]:
 
 
 # 緩和失敗(画像)
@@ -476,7 +480,7 @@ def mitigation_compare_failed_ret_picture(file_path: str=None) -> None:
     plt.savefig(file_path)
 
 
-# In[25]:
+# In[ ]:
 
 
 @log(logger)
@@ -489,7 +493,7 @@ def move_log(file_path: str=None) -> str:
 
 # [required]
 
-# In[26]:
+# In[ ]:
 
 
 @log(logger)
@@ -574,7 +578,7 @@ def main() -> None:
 
 # [uneditable]
 
-# In[27]:
+# In[ ]:
 
 
 if __name__ == '__main__':
