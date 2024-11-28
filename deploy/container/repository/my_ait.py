@@ -110,7 +110,7 @@ if not is_ait_launch:
 
 # #### #3-3 [uneditable]
 
-# In[7]:
+# In[ ]:
 
 
 if not is_ait_launch:
@@ -124,7 +124,7 @@ if not is_ait_launch:
 
 # #### #4-1 [required]
 
-# In[8]:
+# In[ ]:
 
 
 # isf用パッチ差し替え
@@ -135,14 +135,14 @@ if not is_ait_launch:
     get_ipython().system('patch {aif_360_home}/datasets/structured_dataset.py patches/structured_dataset.patch')
 
 
-# In[9]:
+# In[ ]:
 
 
 if not is_ait_launch:
     get_ipython().system('pip show Intersectional-Fairness # isf用パッチ差し替え')
 
 
-# In[10]:
+# In[ ]:
 
 
 # import if you need modules cell
@@ -154,7 +154,7 @@ from isf.analysis.metrics import check_metrics_combination_attribute, check_metr
 
 # #### #4-2 [uneditable]
 
-# In[11]:
+# In[ ]:
 
 
 # must use modules
@@ -173,7 +173,7 @@ from ait_sdk.develop.annotation import measures, resources, downloads, ait_main 
 
 # [required]
 
-# In[12]:
+# In[ ]:
 
 
 if not is_ait_launch:
@@ -226,7 +226,7 @@ if not is_ait_launch:
 
 # [required]
 
-# In[13]:
+# In[ ]:
 
 
 if not is_ait_launch:
@@ -243,7 +243,7 @@ if not is_ait_launch:
 
 # [uneditable]
 
-# In[14]:
+# In[ ]:
 
 
 logger = get_logger()
@@ -273,7 +273,7 @@ ait_manifest.read_json(path_helper.get_manifest_file_path())
 
 # [required]
 
-# In[15]:
+# In[ ]:
 
 
 from isf.core.intersectional_fairness import IntersectionalFairness
@@ -291,7 +291,7 @@ import warnings
 warnings.filterwarnings('ignore', category=FutureWarning)  # FutureWarningを無視
 
 
-# In[16]:
+# In[ ]:
 
 
 def read_protection_attribute(protection_attribute):
@@ -300,7 +300,7 @@ def read_protection_attribute(protection_attribute):
     return protected_attribute_names
 
 
-# In[17]:
+# In[ ]:
 
 
 def convert_dataset(input_table_data, input_label_data, protection_attribute):
@@ -322,7 +322,7 @@ def convert_dataset(input_table_data, input_label_data, protection_attribute):
     return dataset
 
 
-# In[18]:
+# In[ ]:
 
 
 # 入力データの公平性を評価
@@ -344,7 +344,7 @@ def calc_worstDI(df_lr_di):
     return worstDI
 
 
-# In[19]:
+# In[ ]:
 
 
 # 入力データの公平性評価結果
@@ -368,7 +368,7 @@ def calc_DI(ds, file_path: str=None) -> None:
     return df_lr_di
 
 
-# In[20]:
+# In[ ]:
 
 
 # 緩和データの公平性評価結果
@@ -392,7 +392,7 @@ def calc_DI_mitigated(ds, file_path: str=None) -> None:
     return df_lr_di
 
 
-# In[21]:
+# In[ ]:
 
 
 # 緩和データの公平性評価結果
@@ -411,7 +411,7 @@ def calc_Based_Accuracy_mitigated(ds, ds_predicted, file_path: str=None) -> None
     return result_combattr_bias
 
 
-# In[22]:
+# In[ ]:
 
 
 # グラフ比較
@@ -449,7 +449,7 @@ def plot_intersectionalbias_compare(ds_bef, ds_aft, file_path: str=None) -> None
     plt.savefig(file_path)
 
 
-# In[23]:
+# In[ ]:
 
 
 # 緩和失敗(表)
@@ -459,7 +459,7 @@ def mitigation_failed_ret_table(file_path: str=None) -> None:
     pd.DataFrame({'Mitigation Failed'}).to_csv(file_path, header=False, index=False)
 
 
-# In[24]:
+# In[ ]:
 
 
 # 緩和失敗(画像)
@@ -480,7 +480,7 @@ def mitigation_compare_failed_ret_picture(file_path: str=None) -> None:
     plt.savefig(file_path)
 
 
-# In[25]:
+# In[ ]:
 
 
 @log(logger)
@@ -493,7 +493,7 @@ def move_log(file_path: str=None) -> str:
 
 # [required]
 
-# In[26]:
+# In[ ]:
 
 
 @log(logger)
